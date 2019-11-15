@@ -1,4 +1,4 @@
-package com.example.huecontroller;
+package com.example.hue_controller;
 
 import org.junit.Test;
 

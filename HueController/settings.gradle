@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Hue Controller'
+rootProject.name='Hue-Controller'

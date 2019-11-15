@@ -1,4 +1,4 @@
-package com.example.huecontroller;
+package com.example.hue_controller;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.huecontroller", appContext.getPackageName());
+        assertEquals("com.example.hue_controller", appContext.getPackageName());
     }
 }
