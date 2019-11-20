@@ -33,7 +33,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if(position == 0){
             return SingleEdit.newInstance();
         } else {
-            return SingleEdit.newInstance();
+            return MultiEdit.newInstance();
             //TODO MAKE MULTI EDIT
         }
     }
