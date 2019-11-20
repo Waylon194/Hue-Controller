@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.hue_controller.R;
 
-public class SingleEdit extends Fragment {
+public class SingleEdit extends Fragment{
 
     private OnFragmentInteractionListener mListener;
 
