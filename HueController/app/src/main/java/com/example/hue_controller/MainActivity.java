@@ -3,6 +3,7 @@ package com.example.hue_controller;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.hue_controller.ui.main.MultiEdit;
 import com.example.hue_controller.ui.main.SingleEdit;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -10,14 +11,11 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.example.hue_controller.ui.main.SectionsPagerAdapter;
 
-public class MainActivity extends AppCompatActivity implements SingleEdit.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements SingleEdit.OnFragmentInteractionListener, MultiEdit.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
