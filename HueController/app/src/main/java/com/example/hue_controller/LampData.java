@@ -38,5 +38,26 @@ public class LampData implements Serializable {
         return state;
     }
 
+    public void setHue(int hue) {
+        this.hue = hue;
+    }
 
+    public void setSaturation(int saturation) {
+        this.saturation = saturation;
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public void setValues(LampData lampData){
+        this.hue = lampData.getHue();
+        this.saturation = lampData.getSaturation();
+        this.brightness = lampData.getBrightness();
+        this.state = lampData.getState();
+    }
 }

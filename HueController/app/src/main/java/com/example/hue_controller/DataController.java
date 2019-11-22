@@ -38,6 +38,15 @@ public class DataController {
         }
     }
 
+    public void updateLamp(LampData lamp){
+        for (LampData l : this.lamps) {
+            if(l.getId().equals(lamp.getId())){
+                l.setValues(lamp);
+                break;
+            }
+        }
+    }
+
     public void sendToHueBridge(LampData lamp) {
         String apiString = buildApiString(lamp.getState());
         JSONObject body = buildBody(lamp.getHue(), lamp.getSaturation(), lamp.getBrightness());
