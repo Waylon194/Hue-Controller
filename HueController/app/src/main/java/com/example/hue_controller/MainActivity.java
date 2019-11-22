@@ -1,6 +1,5 @@
 package com.example.hue_controller;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.hue_controller.ui.main.MultiEdit;
@@ -13,19 +12,33 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.hue_controller.ui.main.SectionsPagerAdapter;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity implements SingleEdit.OnFragmentInteractionListener, MultiEdit.OnFragmentInteractionListener {
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private SingleEdit singleFragment;
+    private MultiEdit multiFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
+
+        this.tabLayout = (TabLayout) findViewById(R.id.tabs);
+        this.viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        //Add the fragments
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        this.singleFragment = new SingleEdit();
+        this.multiFragment = MultiEdit.newInstance();
+
+        adapter.AddFragment(singleFragment, getResources().getString(R.string.tab_text_1));
+        adapter.AddFragment(multiFragment, getResources().getString(R.string.tab_text_2));
+
+        //Add the setup
+        this.viewPager.setAdapter(adapter);
+        this.tabLayout.setupWithViewPager(viewPager);
+
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -35,10 +48,5 @@ public class MainActivity extends AppCompatActivity implements SingleEdit.OnFrag
                         .setAction("Action", null).show();
             }
         });
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

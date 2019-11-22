@@ -1,70 +1,38 @@
 package com.example.hue_controller.ui.main;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.hue_controller.R;
+import com.example.hue_controller.SingleLampAdapter;
 
 public class SingleEdit extends Fragment{
 
-    private OnFragmentInteractionListener mListener;
-
-    public SingleEdit() {
-        // Required empty public constructor
-    }
-
-
-    public static SingleEdit newInstance() {
-        SingleEdit fragment = new SingleEdit();
-        return fragment;
-    }
+    private View view;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        this.view = inflater.inflate(R.layout.fragment_single_edit, container, false);
+//        this.recyclerView = view.findViewById(R.id.singleRecyclerView);
+//        this.adapter = new SingleLampAdapter(this.logicController.getDwarves());
+//        this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        this.recyclerView.setAdapter(adapter);
+        return view;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_single_edit, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    //Update all the dwarves in the recyclerview
+    public void updateDwarfes() {
+        this.adapter.notifyDataSetChanged();
     }
 }

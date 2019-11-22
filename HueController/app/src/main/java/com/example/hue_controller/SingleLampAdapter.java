@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class SingleLampImageAdapter extends RecyclerView.Adapter<SingleLampImageAdapter.SLViewHolder> {
+public class SingleLampAdapter extends RecyclerView.Adapter<SingleLampAdapter.SLViewHolder> {
 
     private ArrayList<LampData> lamps;
 
-    public SingleLampImageAdapter(ArrayList<LampData> lamps) {
+    public SingleLampAdapter(ArrayList<LampData> lamps) {
         this.lamps = lamps;
     }
 
