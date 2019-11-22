@@ -4,38 +4,38 @@ import java.io.Serializable;
 
 public class LampData implements Serializable {
 
-    private int r;
-    private int g;
-    private int b;
+    private int hue;
+    private int saturation;
+    private int brightness;
     private String id;
-    private boolean on;
+    private boolean state;
 
-    public LampData(int r, int g, int b, String id, boolean on) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
+    public LampData(int hue, int saturation, int brightness, String id, boolean state) {
+        this.hue = hue;
+        this.saturation = saturation;
+        this.brightness = brightness;
         this.id = id;
-        this.on = on;
+        this.state = state;
     }
 
-    public int getR() {
-        return r;
+    public int getHue() {
+        return hue;
     }
 
-    public int getG() {
-        return g;
+    public int getSaturation() {
+        return saturation;
     }
 
-    public int getB() {
-        return b;
+    public int getBrightness() {
+        return brightness;
     }
 
     public String getId() {
         return id;
     }
 
-    public boolean isOn() {
-        return on;
+    public boolean getState() {
+        return state;
     }
 
 

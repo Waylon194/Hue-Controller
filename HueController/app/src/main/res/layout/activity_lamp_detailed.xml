@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <TextView
         android:id="@+id/lampNameDetailed"
@@ -32,8 +32,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/lampNameDetailed" />
 
@@ -43,82 +44,88 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:text="@string/light"
         app:layout_constraintBottom_toBottomOf="@+id/lampSwitch"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/lampSwitch"
-        tools:text="Light" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
-        android:id="@+id/redValue"
+        android:id="@+id/hueValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:max="65536"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/lampSwitch" />
 
     <SeekBar
-        android:id="@+id/greenValue"
+        android:id="@+id/brightnessValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:max="255"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/redValue" />
+        app:layout_constraintTop_toBottomOf="@+id/saturationValue" />
 
     <SeekBar
-        android:id="@+id/blueValue"
+        android:id="@+id/saturationValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:max="255"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/greenValue" />
+        app:layout_constraintTop_toBottomOf="@+id/hueValue" />
 
     <TextView
-        android:id="@+id/redText"
+        android:id="@+id/hueText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/redValue"
+        android:text="@string/hue"
+        app:layout_constraintBottom_toBottomOf="@+id/hueValue"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/redValue"
-        tools:text="Red" />
+        app:layout_constraintTop_toTopOf="@+id/hueValue" />
 
     <TextView
-        android:id="@+id/greenText"
+        android:id="@+id/saturationText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/greenValue"
+        android:text="@string/saturation"
+        app:layout_constraintBottom_toBottomOf="@+id/saturationValue"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/greenValue"
-        tools:text="Green" />
+        app:layout_constraintTop_toTopOf="@+id/saturationValue" />
 
     <TextView
-        android:id="@+id/blueText"
+        android:id="@+id/brightnessText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/blueValue"
+        android:text="@string/brightness"
+        app:layout_constraintBottom_toBottomOf="@+id/brightnessValue"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/blueValue"
-        tools:text="Blue" />
+        app:layout_constraintTop_toTopOf="@+id/brightnessValue" />
 
     <Button
         android:id="@+id/discoButton"
@@ -126,10 +133,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:text="@string/disco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Disco" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/flowButton"
@@ -138,10 +145,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:text="@string/flow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        tools:text="Flow" />
+        app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"

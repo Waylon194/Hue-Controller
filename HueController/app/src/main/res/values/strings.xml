@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">Hue Controller</string>
-    <string name="tab_text_1">Single Edit</string>
-    <string name="tab_text_2">Multi Edit</string>
+    <string name="app_name" translatable="false">Hue Controller</string>
+    <string name="tab_text_1">Single edit</string>
+    <string name="tab_text_2">Multi edit</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hue" translatable="false">Hue</string>
+    <string name="saturation" translatable="false">Saturation</string>
+    <string name="brightness">Brightness</string>
+    <string name="light">Light</string>
+    <string name="disco" translatable="false">Disco</string>
+    <string name="flow">Flow</string>
 </resources>

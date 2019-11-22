@@ -1,6 +1,7 @@
 package com.example.hue_controller.ui.main;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hue_controller.DataController;
 import com.example.hue_controller.R;
 import com.example.hue_controller.SingleLampAdapter;
 
@@ -24,15 +27,16 @@ public class SingleEdit extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_single_edit, container, false);
-//        this.recyclerView = view.findViewById(R.id.singleRecyclerView);
-//        this.adapter = new SingleLampAdapter(this.logicController.getDwarves());
-//        this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        this.recyclerView.setAdapter(adapter);
+        this.recyclerView = this.view.findViewById(R.id.singleRecyclerView);
+        this.adapter = new SingleLampAdapter(DataController.getInstance().getLamps());
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        this.recyclerView.setAdapter(this.adapter);
+        this.recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         return view;
     }
 
-    //Update all the dwarves in the recyclerview
-    public void updateDwarfes() {
+    //Update all the lamps in the recyclerview
+    public void updateLamps() {
         this.adapter.notifyDataSetChanged();
     }
 }
