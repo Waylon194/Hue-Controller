@@ -4,6 +4,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -33,8 +34,24 @@ public class DataController {
     }
 
     public void test(){
-        for (int i = 0; i < 20; i++){
-            this.lamps.add(new LampData((int)(Math.random() * 60000), (int)(Math.random() * 255), (int)(Math.random() * 255), "Lamp " + i, true));
+        ArrayList names = new ArrayList();
+        names.add("Badkamer");
+        names.add("Woonkamer");
+        names.add("Slaapkamer");
+        names.add("Hal");
+        names.add("Douche");
+        names.add("Schuur");
+        names.add("WC");
+        names.add("Keuken");
+        names.add("Studeerkamer");
+        names.add("Logeerkamer");
+        names.add("Tuin Lamp");
+        names.add("Balkon Lamp");
+
+        Collections.shuffle(names);
+
+        for (int i = 0; i < names.size(); i++){
+            this.lamps.add(new LampData((int)(Math.random() * 65536), (int)(Math.random() * 255), (int)(Math.random() * 255), names.get(i) + " #" + (i + 1), true));
         }
     }
 

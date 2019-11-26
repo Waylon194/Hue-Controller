@@ -5,4 +5,6 @@
     <string name="brightness">Helderheid</string>
     <string name="light">Licht</string>
     <string name="flow">Vloeiend</string>
+    <string name="multipleLights">Meerdere lampen</string>
+    <string name="edit">Bewerken</string>
 </resources>

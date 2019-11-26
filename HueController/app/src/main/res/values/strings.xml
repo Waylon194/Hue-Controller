@@ -10,4 +10,6 @@
     <string name="light">Light</string>
     <string name="disco" translatable="false">Disco</string>
     <string name="flow">Flow</string>
+    <string name="multipleLights">Multiple lights</string>
+    <string name="edit">Edit</string>
 </resources>

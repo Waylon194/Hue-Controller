@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //Add the fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         this.singleFragment = new SingleEdit();
-        this.multiFragment = MultiEdit.newInstance();
+        this.multiFragment = new MultiEdit();
 
         adapter.AddFragment(singleFragment, getResources().getString(R.string.tab_text_1));
         adapter.AddFragment(multiFragment, getResources().getString(R.string.tab_text_2));
@@ -38,15 +38,5 @@ public class MainActivity extends AppCompatActivity {
         //Add the setup
         this.viewPager.setAdapter(adapter);
         this.tabLayout.setupWithViewPager(viewPager);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 }

@@ -1,8 +1,6 @@
 package com.example.hue_controller.ui.main;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hue_controller.DataController;
 import com.example.hue_controller.R;
-import com.example.hue_controller.SingleLampAdapter;
+import com.example.hue_controller.LampAdapter;
 
 public class SingleEdit extends Fragment{
 
@@ -28,7 +26,7 @@ public class SingleEdit extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_single_edit, container, false);
         this.recyclerView = this.view.findViewById(R.id.singleRecyclerView);
-        this.adapter = new SingleLampAdapter(DataController.getInstance().getLamps());
+        this.adapter = new LampAdapter(DataController.getInstance().getLamps(), true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.recyclerView.setAdapter(this.adapter);
         this.recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
