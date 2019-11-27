@@ -1,15 +1,11 @@
 <resources>
     <string name="app_name" translatable="false">Hue Controller</string>
-    <string name="tab_text_1">Single edit</string>
-    <string name="tab_text_2">Multi edit</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tab_text_1">Hue Lamps</string>
     <string name="hue" translatable="false">Hue</string>
     <string name="saturation" translatable="false">Saturation</string>
     <string name="brightness">Brightness</string>
     <string name="light">Light</string>
     <string name="disco" translatable="false">Disco</string>
     <string name="flow">Flow</string>
-    <string name="multipleLights">Multiple lights</string>
     <string name="edit">Edit</string>
 </resources>

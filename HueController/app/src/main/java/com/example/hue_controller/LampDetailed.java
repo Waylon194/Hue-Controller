@@ -2,22 +2,18 @@ package com.example.hue_controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
 public class LampDetailed extends AppCompatActivity {
-
     private TextView lampName;
     private SeekBar hue;
     private SeekBar saturation;
     private SeekBar brightness;
     private Switch powerSwitch;
-
     private LampData lamp;
     private DataController dataController;
 
@@ -25,7 +21,7 @@ public class LampDetailed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lamp_detailed);
-        this.dataController = DataController.getInstance();
+//      this.dataController = DataController.getInstance();
 
         this.lampName = findViewById(R.id.lampNameDetailed);
         this.hue = findViewById(R.id.hueValue);
@@ -62,7 +58,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 lamp.setSaturation(progress);
-                dataController.updateLamp(lamp);
+                //dataController.updateLamp(lamp);
             }
 
             @Override
@@ -80,7 +76,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 lamp.setBrightness(progress);
-                dataController.updateLamp(lamp);
+                //dataController.updateLamp(lamp);
             }
 
             @Override

@@ -1,6 +1,17 @@
 package com.example.hue_controller;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -9,24 +20,16 @@ import java.util.Collections;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class DataController {
-
-    String userKey = "newdeveloper";
-    String ip = "10.0.2.2";
-    int port = 80;
-
-    String fullAddress = ip + ":" + port;
-
     private ArrayList<LampData> lamps;
+    private Context context;
+    private RequestQueue queue;
+    private ILamp listener;
 
-    private static final DataController dataController = new DataController();
-
-    private DataController() {
+    public DataController(Context context, ILamp listener) {
         this.lamps = new ArrayList<>();
-        test();
-    }
-
-    public static DataController getInstance(){
-        return dataController;
+        this.context = context;
+        this.listener = listener;
+        queue = Volley.newRequestQueue(this.context);
     }
 
     public ArrayList<LampData> getLamps() {
@@ -64,49 +67,83 @@ public class DataController {
         }
     }
 
-    public void sendToHueBridge(LampData lamp) {
-        String apiString = buildApiString(lamp.getState());
-        JSONObject body = buildBody(lamp.getHue(), lamp.getSaturation(), lamp.getBrightness());
+    public void getLampsLA136 (){
+        final String url = "http://145.48.205.33/api/iYrmsQq1wu5FxF9CPqpJCnm1GpPVylKBWDUsNDhB";
 
-        // Note that the HUE API expects a JSONObject but returns a JSONArray,
-        // hence the use of this custom Volley class that handles this
-//        CustomJsonArrayRequest request = new CustomJsonArrayRequest(
-//                Request.Method.PUT,
-//                buildUrl(),
-//                buildBody(),
-//                new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        Log.i(TAG, "Response=" + response.toString());
-//                        try {
-//                            resultView.setText(response.toString(4));
-//                        } catch (JSONException exception) {
-//                            exception.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.d(TAG, "Error=" + error.getMessage());
-//                        resultView.setText(error.getMessage());
-//                    }
-//                }
-//        );
-//        Log.i(TAG, "Sending request");
-//        requestQueue.add(request);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray array = response.getJSONObject("lights").names();
+                    DataController.this.listener.onResponse(response, array);
+                    Log.v(TAG, "Got: " + response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.v(TAG, error.toString());
+            }
+        });
+        queue.add(jsonObjectRequest);
+    }
+
+    public void lamp(boolean state, int hue, int sat, int brightness) {
+        final String partURl = "/lights/1/state";
+        final String url = "http://145.48.205.33/api/iYrmsQq1wu5FxF9CPqpJCnm1GpPVylKBWDUsNDhB/lights/1/state";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("on", state);
+            jsonObject.put("hue", hue);
+            jsonObject.put("sat", sat);
+            jsonObject.put("bri", brightness);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        CustomJsonArrayRequest request = new CustomJsonArrayRequest(
+            Request.Method.PUT, url, jsonObject,
+            new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    for (int i = 0; i < response.length() ; i++) {
+                        try {
+                            if (response.getJSONObject(i).getJSONObject("success").getBoolean(partURl)) {
+                                //Show message
+                                //Toast.makeText(context, "Successfully retrieved lamp", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }
+        );
+        queue.add(request);
     }
 
     private String buildApiString(boolean state) {
+        String userKey = "";
         String apiString = "/api/" + userKey + "/lights/" + state + "/state";
-        Log.i(TAG, "apiString=" + apiString);
+        Log.v(TAG, "apiString=" + apiString);
         return apiString;
     }
 
-    private JSONObject buildBody(int hue, int saturation, int brightness) {
+    private JSONObject buildBody(boolean state, int hue, int saturation, int brightness) {
         JSONObject body = new JSONObject();
         try {
-            body.put("on", true);
+            body.put("on", state);
             body.put("hue", hue);
             body.put("sat", saturation);
             body.put("bri", brightness);
@@ -114,7 +151,7 @@ public class DataController {
         catch (JSONException exception) {
             exception.printStackTrace();
         }
-        Log.i(TAG, "JSON body=" + body.toString());
+        Log.v(TAG, "JSON body=" + body.toString());
         return body;
     }
 }
