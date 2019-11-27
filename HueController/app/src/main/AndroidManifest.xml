@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LampDetailed"></activity>
         <activity android:name=".RowItemSingle" />
-        <activity android:name=".Settings" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

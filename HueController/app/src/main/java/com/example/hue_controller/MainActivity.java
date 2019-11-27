@@ -2,6 +2,7 @@ package com.example.hue_controller;
 
 import android.os.Bundle;
 
+import com.example.hue_controller.ui.main.SettingsFragment;
 import com.example.hue_controller.ui.main.SingleEdit;
 import com.google.android.material.tabs.TabLayout;
 
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private SingleEdit singleFragment;
+    private SettingsFragment settingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
         //Add the fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         this.singleFragment = new SingleEdit();
-
+        this.settingsFragment = new SettingsFragment(this);
         adapter.AddFragment(singleFragment, getResources().getString(R.string.tab_text_1));
+        adapter.AddFragment(settingsFragment, getResources().getString(R.string.tab_text_2));
 
         //Add the setup
         this.viewPager.setAdapter(adapter);

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="tab_text_1">Enkele bewerking</string>
-    <string name="tab_text_2">Meerdere bewerking</string>
     <string name="brightness">Helderheid</string>
     <string name="light">Licht</string>
     <string name="flow">Vloeiend</string>
-    <string name="multipleLights">Meerdere lampen</string>
     <string name="edit">Bewerken</string>
+    <string name="ipText">Voer IP adres in</string>
+    <string name="portText">Voer poort nummer in</string>
+    <string name="bridge">Brug</string>
+    <string name="tab_text_2">Settings</string>
 </resources>

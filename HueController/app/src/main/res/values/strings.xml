@@ -8,4 +8,12 @@
     <string name="disco" translatable="false">Disco</string>
     <string name="flow">Flow</string>
     <string name="edit">Edit</string>
+    <string name="ipText">Enter IP address</string>
+    <string name="portText">Enter port number</string>
+    <string name="bridge">Bridge</string>
+    <string name="emulator" translatable="false">Emulator</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_text_2">Settings</string>
 </resources>
