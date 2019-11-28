@@ -15,17 +15,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Connection {
-
     private static final String TAG = "Connection";
     private static final Connection INSTANCE = new Connection();
-
     private RequestQueue queue;
     private String ip;
     private String port;
     private String userKey;
     private ILamp listener;
 
-    private Connection(){}
+    private Connection(){
+
+    }
 
     public static Connection getInstance(){
         return INSTANCE;

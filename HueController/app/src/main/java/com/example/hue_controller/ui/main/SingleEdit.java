@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleEdit extends Fragment implements ILamp {
-
     private View view;
     private RecyclerView.Adapter adapter;
     private RecyclerView recyclerView;
@@ -35,9 +34,7 @@ public class SingleEdit extends Fragment implements ILamp {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_single_edit, container, false);
-
         this.dataController = DataController.getInstance();
-
         this.recyclerView = this.view.findViewById(R.id.singleRecyclerView);
         this.adapter = new LampAdapter(dataController.getLamps());
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

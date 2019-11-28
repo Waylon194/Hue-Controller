@@ -1,34 +1,21 @@
 package com.example.hue_controller;
 
 import android.content.Context;
-import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.hue_controller.ui.main.SettingsFragment;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import java.util.ArrayList;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class DataController {
     private final String TAG = "DataController";
-
     private ArrayList<LampData> lamps;
     private Context context;
     private RequestQueue queue;
     private ILamp listener;
     private Connection connection;
     private SettingsFragment settings;
-
     private final static DataController instance = new DataController();
 
     private DataController(){
