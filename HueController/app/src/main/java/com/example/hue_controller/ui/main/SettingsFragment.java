@@ -21,24 +21,20 @@ import com.example.hue_controller.R;
 import static android.content.Context.MODE_PRIVATE;
 
 public class SettingsFragment extends Fragment {
-
     private View view;
     private Context context;
     private Switch emuSwitch;
     private EditText ipEditText;
     private EditText portEditText;
     private EditText userKeyEditText;
-
     private Boolean emulating;
     private String ip;
     private String port;
     private String userKey;
-
     private static final String emultatingTag = "Emulating";
     private static final String ipTag = "IP";
     private static final String portTag = "Port";
     private static final String userKeyTag = "UserKey";
-
     private static final String PREFS_NAME = "SETTINGS";
 
     public SettingsFragment(Context context) {

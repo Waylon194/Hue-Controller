@@ -3,7 +3,6 @@ package com.example.hue_controller;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.RequestQueue;
 import com.example.hue_controller.ui.main.SettingsFragment;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ public class DataController {
     private final String TAG = "DataController";
     private ArrayList<LampData> lamps;
     private Context context;
-    private RequestQueue queue;
     private ILamp listener;
     private Connection connection;
     private SettingsFragment settings;
