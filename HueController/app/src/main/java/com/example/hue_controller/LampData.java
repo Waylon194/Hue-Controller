@@ -8,13 +8,15 @@ public class LampData implements Serializable {
     private int hue;
     private int saturation;
     private int brightness;
+    private String lampID;
     private String lampName;
     private boolean state;
 
-    public LampData(int hue, int saturation, int brightness, String lampName, boolean state) {
+    public LampData(int hue, int saturation, int brightness, String lampID, String lampName, boolean state) {
         this.hue = hue;
         this.saturation = saturation;
         this.brightness = brightness;
+        this.lampID = lampID;
         this.lampName = lampName;
         this.state = state;
     }
@@ -29,6 +31,10 @@ public class LampData implements Serializable {
 
     public int getBrightness() {
         return brightness;
+    }
+
+    public String getLampID() {
+        return lampID;
     }
 
     public String getLampName() {
@@ -67,11 +73,11 @@ public class LampData implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LampData lampData = (LampData) o;
-        return Objects.equals(lampName, lampData.lampName);
+        return Objects.equals(lampID, lampData.lampID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lampName);
+        return Objects.hash(lampID);
     }
 }

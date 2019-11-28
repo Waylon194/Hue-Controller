@@ -2,7 +2,6 @@ package com.example.hue_controller;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -14,10 +13,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class Connection {
 
@@ -69,7 +64,7 @@ public class Connection {
     public void putLamp(LampData lamp){
         CustomJsonArrayRequest request = new CustomJsonArrayRequest(
                 Request.Method.PUT,
-                buildUrl(lamp.getLampName()),
+                buildUrl(lamp.getLampID()),
                 buildBody(lamp),
                 new Response.Listener<JSONArray>() {
                     @Override

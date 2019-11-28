@@ -63,11 +63,13 @@ public class SingleEdit extends Fragment implements ILamp {
         for (String s : lampNameList) {
             try {
                 currentLampStateObject = jsonObject.getJSONObject("lights").getJSONObject(s).getJSONObject("state");
+
                 LampData lampData = new LampData(
                         currentLampStateObject.getInt("hue"),
                         currentLampStateObject.getInt("sat"),
                         currentLampStateObject.getInt("bri"),
                         s,
+                        jsonObject.getJSONObject("lights").getJSONObject(s).getString("name"),
                         currentLampStateObject.getBoolean("on")
                 );
                 dataController.addLamp(lampData);
