@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.hue_controller.ui.main.SettingsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,9 +19,7 @@ public class Connection {
     private static final String TAG = "Connection";
     private static final Connection INSTANCE = new Connection();
     private RequestQueue queue;
-    private String ip;
-    private String port;
-    private String userKey;
+    private SettingsFragment settings;
     private ILamp listener;
 
     private Connection(){
@@ -31,16 +30,14 @@ public class Connection {
         return INSTANCE;
     }
 
-    public void connect(Context context, String ip, String port, String userKey, ILamp listener){
+    public void connect(Context context, SettingsFragment settings, ILamp listener){
         this.queue = Volley.newRequestQueue(context);
-        this.ip = ip;
-        this.port = port;
-        this.userKey = userKey;
+        this.settings = settings;
         this.listener = listener;
     }
 
     public void getLamps(){
-        String url = "http://" + this.ip + ":" + this.port + "/api/" + this.userKey;
+        String url = "http://" + this.settings.getIp() + ":" + this.settings.getPort() + "/api/" + this.settings.getUserKey();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -83,13 +80,13 @@ public class Connection {
     }
 
     private String buildUrl(String lightNumber){
-        String url = "http://" + this.ip + ":" + this.port + buildApiString(lightNumber);
+        String url = "http://" + this.settings.getIp() + ":" + this.settings.getPort() + buildApiString(lightNumber);
         Log.i(TAG, "URL=" + url);
         return url;
     }
 
     private String buildApiString(String lightNumber){
-        String apiString = "/api/" + this.userKey + "/lights/" + lightNumber + "/state";
+        String apiString = "/api/" + this.settings.getUserKey() + "/lights/" + lightNumber + "/state";
         Log.i(TAG, "apiString=" + apiString);
         return apiString;
     }

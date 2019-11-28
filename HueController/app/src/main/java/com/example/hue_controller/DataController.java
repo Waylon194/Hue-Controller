@@ -32,7 +32,7 @@ public class DataController {
 
     public void connect(){
         this.connection = Connection.getInstance();
-        this.connection.connect(this.context, this.settings.getIp(), this.settings.getPort(), this.settings.getUserKey(), this.listener);
+        this.connection.connect(this.context, this.settings, this.listener);
     }
 
     public void updateLamp(LampData lamp){
@@ -45,6 +45,11 @@ public class DataController {
             }
             Log.d(TAG, "updateLamp");
         }
+    }
+
+    public void refreshLamps(){
+        this.lamps.clear();
+        this.connection.getLamps();
     }
 
     public ArrayList<LampData> getLamps() {

@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import com.example.hue_controller.DataController;
 import com.example.hue_controller.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -61,6 +62,7 @@ public class SettingsFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 emulating = isChecked;
                 saveBoolean(emultatingTag, emulating);
+                DataController.getInstance().refreshLamps();
             }
         });
 
@@ -71,6 +73,7 @@ public class SettingsFragment extends Fragment {
                     if(!ipEditText.getText().toString().trim().isEmpty()){
                         ip = ipEditText.getText().toString();
                         saveString(ipTag, ip);
+                        DataController.getInstance().refreshLamps();
                     }
                 }
             }
@@ -83,6 +86,7 @@ public class SettingsFragment extends Fragment {
                     if(!portEditText.getText().toString().trim().isEmpty()){
                         port = (String) portEditText.getText().toString();
                         saveString(portTag, port);
+                        DataController.getInstance().refreshLamps();
                     }
                 }
             }
@@ -95,6 +99,7 @@ public class SettingsFragment extends Fragment {
                     if(!userKeyEditText.getText().toString().trim().isEmpty()){
                         userKey = (String) userKeyEditText.getText().toString();
                         saveString(userKeyTag, userKey);
+                        DataController.getInstance().refreshLamps();
                     }
                 }
             }
