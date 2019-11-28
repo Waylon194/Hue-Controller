@@ -33,5 +33,10 @@ public class MainActivity extends AppCompatActivity {
         //Add the setup
         this.viewPager.setAdapter(adapter);
         this.tabLayout.setupWithViewPager(viewPager);
+
+        DataController dataController = DataController.getInstance();
+        dataController.init(this, this.singleFragment, this.settingsFragment);
+        dataController.connect();
+        Connection.getInstance().getLamps();
     }
 }

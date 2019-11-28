@@ -27,33 +27,38 @@ public class SettingsFragment extends Fragment {
     private Switch emuSwitch;
     private EditText ipEditText;
     private EditText portEditText;
+    private EditText userKeyEditText;
 
     private Boolean emulating;
     private String ip;
     private String port;
+    private String userKey;
 
-    private final String emultatingTag = "Emulating";
-    private final String ipTag = "IP";
-    private final String portTag = "Port";
+    private static final String emultatingTag = "Emulating";
+    private static final String ipTag = "IP";
+    private static final String portTag = "Port";
+    private static final String userKeyTag = "UserKey";
 
     private static final String PREFS_NAME = "SETTINGS";
 
     public SettingsFragment(Context context) {
         this.context = context;
+        loadPreferences();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_settings, container, false);
-        loadPreferences();
 
         this.emuSwitch = view.findViewById(R.id.bridgeEmulatorSwitch);
         this.ipEditText = view.findViewById(R.id.ipText);
         this.portEditText = view.findViewById(R.id.portText);
+        this.userKeyEditText = view.findViewById(R.id.userKeyText);
 
         this.emuSwitch.setChecked(emulating);
         this.ipEditText.setText(this.ip);
         this.portEditText.setText(this.port);
+        this.userKeyEditText.setText(this.userKey);
 
         this.emuSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -87,14 +92,26 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        this.userKeyEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(!userKeyEditText.getText().toString().trim().isEmpty()){
+                        userKey = (String) userKeyEditText.getText().toString();
+                        saveString(userKeyTag, userKey);
+                    }
+                }
+            }
+        });
         return view;
     }
 
-    private void loadPreferences() {
+    public void loadPreferences() {
         SharedPreferences preferences = this.context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         this.emulating = preferences.getBoolean(this.emultatingTag, true);
         this.ip = preferences.getString(this.ipTag, "145.48.205.33");
         this.port = preferences.getString(this.portTag, "80");
+        this.userKey = preferences.getString(this.userKeyTag, "iYrmsQq1wu5FxF9CPqpJCnm1GpPVylKBWDUsNDhB");
     }
 
     private void saveBoolean(String key, boolean value){
@@ -109,5 +126,17 @@ public class SettingsFragment extends Fragment {
         preferences.putString(key, value);
         preferences.apply();
         Log.d("saveString", "Saved " + key + " with " + value);
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public String getUserKey() {
+        return userKey;
     }
 }

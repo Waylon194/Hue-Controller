@@ -30,25 +30,20 @@ public class SingleEdit extends Fragment implements ILamp {
     private View view;
     private RecyclerView.Adapter adapter;
     private RecyclerView recyclerView;
-    private ArrayList<LampData> lamps;
+    private DataController dataController;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.lamps = new ArrayList<>();
         this.view = inflater.inflate(R.layout.fragment_single_edit, container, false);
+
+        this.dataController = DataController.getInstance();
+
         this.recyclerView = this.view.findViewById(R.id.singleRecyclerView);
-        DataController data = new DataController(getContext(), this);
-        data.getLampsLA136();
-        this.adapter = new LampAdapter(lamps);
+        this.adapter = new LampAdapter(dataController.getLamps());
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.recyclerView.setAdapter(this.adapter);
         this.recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         return view;
-    }
-
-    //Update all the lamps in the recyclerview
-    public void updateLamps() {
-        this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -75,7 +70,7 @@ public class SingleEdit extends Fragment implements ILamp {
                         s,
                         currentLampStateObject.getBoolean("on")
                 );
-                lamps.add(lampData);
+                dataController.addLamp(lampData);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

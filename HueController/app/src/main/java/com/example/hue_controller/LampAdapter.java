@@ -34,7 +34,7 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.LampViewHolder
     @Override
     public void onBindViewHolder(@NonNull LampViewHolder viewHolder, int position) {
         final LampData lampData = this.lamps.get(position);
-        viewHolder.lampID.setText(lampData.getId());
+        viewHolder.lampID.setText(lampData.getLampName());
     }
 
     @Override

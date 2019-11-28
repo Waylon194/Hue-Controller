@@ -21,7 +21,8 @@ public class LampDetailed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lamp_detailed);
-//      this.dataController = DataController.getInstance();
+
+        this.dataController = DataController.getInstance();
 
         this.lampName = findViewById(R.id.lampNameDetailed);
         this.hue = findViewById(R.id.hueValue);
@@ -29,8 +30,8 @@ public class LampDetailed extends AppCompatActivity {
         this.brightness = findViewById(R.id.brightnessValue);
         this.powerSwitch = findViewById(R.id.lampSwitch);
 
-        lamp = (LampData) getIntent().getSerializableExtra("LAMP");
-        this.lampName.setText(lamp.getId());
+        this.lamp = (LampData) getIntent().getSerializableExtra("LAMP");
+        this.lampName.setText(lamp.getLampName());
         this.hue.setProgress(lamp.getHue());
         this.saturation.setProgress(lamp.getSaturation());
         this.brightness.setProgress(lamp.getBrightness());
@@ -58,7 +59,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 lamp.setSaturation(progress);
-                //dataController.updateLamp(lamp);
+                dataController.updateLamp(lamp);
             }
 
             @Override
@@ -76,7 +77,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 lamp.setBrightness(progress);
-                //dataController.updateLamp(lamp);
+                dataController.updateLamp(lamp);
             }
 
             @Override
