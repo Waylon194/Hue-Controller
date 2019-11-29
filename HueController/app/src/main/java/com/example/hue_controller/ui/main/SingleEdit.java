@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleEdit extends Fragment implements ILamp {
-    private RecyclerView.Adapter adapter;
+    private static RecyclerView.Adapter adapter;
     private RecyclerView recyclerView;
     private Model model;
 
@@ -35,7 +35,7 @@ public class SingleEdit extends Fragment implements ILamp {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_single_edit, container, false);
         this.model = Model.getInstance();
-        this.adapter = new LampAdapter(this.model.getLamps());
+        adapter = new LampAdapter(this.model.getLamps());
         this.recyclerView = view.findViewById(R.id.singleRecyclerView);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.recyclerView.setAdapter(this.adapter);
@@ -46,7 +46,7 @@ public class SingleEdit extends Fragment implements ILamp {
     @Override
     public void onResponse(JSONObject jsonObject, JSONArray lampNames) {
         JSONObject currentLampStateObject;
-
+        Model.getInstance().clearLamp();
         List<String> lampNameList = new ArrayList<>();
 
         for (int i = 0; i < lampNames.length() ; i++) {
@@ -69,11 +69,11 @@ public class SingleEdit extends Fragment implements ILamp {
                         jsonObject.getJSONObject("lights").getJSONObject(s).getString("name"),
                         currentLampStateObject.getBoolean("on")
                 );
-                this.model.addLamp(lamp);
+                Model.getInstance().addLamp(lamp);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        this.adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 }

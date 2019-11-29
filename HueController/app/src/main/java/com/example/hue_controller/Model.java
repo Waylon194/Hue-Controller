@@ -57,6 +57,10 @@ public class Model {
         return lamps;
     }
 
+    public void clearLamp(){
+        this.lamps.clear();
+    }
+
     public void refreshLamps(){
         this.lamps.clear();
         this.connection.getLamps();
