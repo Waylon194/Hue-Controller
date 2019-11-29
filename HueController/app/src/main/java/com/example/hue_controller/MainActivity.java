@@ -9,6 +9,8 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         this.singleFragment = new SingleEdit();
         this.settingsFragment = new SettingsFragment();
-        this.settingsFragment.init(this);
         adapter.AddFragment(singleFragment, getResources().getString(R.string.tab_text_1));
         adapter.AddFragment(settingsFragment, getResources().getString(R.string.tab_text_2));
 
@@ -35,9 +36,8 @@ public class MainActivity extends AppCompatActivity {
         this.viewPager.setAdapter(adapter);
         this.tabLayout.setupWithViewPager(viewPager);
 
-        DataController dataController = DataController.getInstance();
-        dataController.init(this, this.singleFragment, this.settingsFragment);
-        dataController.connect();
-        Connection.getInstance().getLamps();
+        Connection connection = new Connection(this, this.singleFragment, this.settingsFragment);
+        Model.getInstance().init(this, connection);
+        connection.getLamps();
     }
 }

@@ -3,7 +3,7 @@ package com.example.hue_controller;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class LampData implements Serializable {
+public class Lamp implements Serializable {
 
     private int hue;
     private int saturation;
@@ -12,7 +12,7 @@ public class LampData implements Serializable {
     private String lampName;
     private boolean state;
 
-    public LampData(int hue, int saturation, int brightness, String lampID, String lampName, boolean state) {
+    public Lamp(int hue, int saturation, int brightness, String lampID, String lampName, boolean state) {
         this.hue = hue;
         this.saturation = saturation;
         this.brightness = brightness;
@@ -61,19 +61,19 @@ public class LampData implements Serializable {
         this.state = state;
     }
 
-    public void setValues(LampData lampData){
-        this.hue = lampData.getHue();
-        this.saturation = lampData.getSaturation();
-        this.brightness = lampData.getBrightness();
-        this.state = lampData.getState();
+    public void setValues(Lamp lamp){
+        this.hue = lamp.getHue();
+        this.saturation = lamp.getSaturation();
+        this.brightness = lamp.getBrightness();
+        this.state = lamp.getState();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LampData lampData = (LampData) o;
-        return Objects.equals(lampID, lampData.lampID);
+        Lamp lamp = (Lamp) o;
+        return Objects.equals(lampID, lamp.lampID);
     }
 
     @Override

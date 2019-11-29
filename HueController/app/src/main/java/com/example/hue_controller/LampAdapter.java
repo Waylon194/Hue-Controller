@@ -15,9 +15,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class LampAdapter extends RecyclerView.Adapter<LampAdapter.LampViewHolder> implements ILamp {
-    private ArrayList<LampData> lamps;
+    private ArrayList<Lamp> lamps;
 
-    public LampAdapter(ArrayList<LampData> lamps) {
+    public LampAdapter(ArrayList<Lamp> lamps) {
         this.lamps = lamps;
     }
 
@@ -33,8 +33,8 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.LampViewHolder
     //Load selected data into row item
     @Override
     public void onBindViewHolder(@NonNull LampViewHolder viewHolder, int position) {
-        final LampData lampData = this.lamps.get(position);
-        viewHolder.lampName.setText(lampData.getLampName());
+        final Lamp lamp = this.lamps.get(position);
+        viewHolder.lampName.setText(lamp.getLampName());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class LampAdapter extends RecyclerView.Adapter<LampAdapter.LampViewHolder
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), LampDetailed.class);
-                    LampData lamp = lamps.get(LampViewHolder.super.getAdapterPosition());
+                    Lamp lamp = lamps.get(LampViewHolder.super.getAdapterPosition());
                     intent.putExtra("LAMP", lamp);
                     v.getContext().startActivity(intent);
                 }

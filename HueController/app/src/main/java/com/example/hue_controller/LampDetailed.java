@@ -14,15 +14,15 @@ public class LampDetailed extends AppCompatActivity {
     private SeekBar saturation;
     private SeekBar brightness;
     private Switch powerSwitch;
-    private LampData lamp;
-    private DataController dataController;
+    private Lamp lamp;
+    private Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lamp_detailed);
 
-        this.dataController = DataController.getInstance();
+        this.model = Model.getInstance();
 
         this.lampName = findViewById(R.id.lampNameDetailed);
         this.hue = findViewById(R.id.hueValue);
@@ -30,7 +30,7 @@ public class LampDetailed extends AppCompatActivity {
         this.brightness = findViewById(R.id.brightnessValue);
         this.powerSwitch = findViewById(R.id.lampSwitch);
 
-        this.lamp = (LampData) getIntent().getSerializableExtra("LAMP");
+        this.lamp = (Lamp) getIntent().getSerializableExtra("LAMP");
         this.lampName.setText(lamp.getLampName());
         this.hue.setProgress(lamp.getHue());
         this.saturation.setProgress(lamp.getSaturation());
@@ -41,7 +41,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 lamp.setHue(progress);
-                dataController.updateLamp(lamp);
+                model.updateLamp(lamp);
             }
 
             @Override
@@ -59,7 +59,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 lamp.setSaturation(progress);
-                dataController.updateLamp(lamp);
+                model.updateLamp(lamp);
             }
 
             @Override
@@ -77,7 +77,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 lamp.setBrightness(progress);
-                dataController.updateLamp(lamp);
+                model.updateLamp(lamp);
             }
 
             @Override
@@ -95,7 +95,7 @@ public class LampDetailed extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 lamp.setState(isChecked);
-                dataController.updateLamp(lamp);
+                model.updateLamp(lamp);
             }
         });
     }

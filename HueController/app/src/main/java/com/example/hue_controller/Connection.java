@@ -10,40 +10,38 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.hue_controller.ui.main.SettingsFragment;
+import com.example.hue_controller.ui.main.SingleEdit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.AccessControlContext;
+
 public class Connection {
     private static final String TAG = "Connection";
-    private static final Connection INSTANCE = new Connection();
     private RequestQueue queue;
-    private SettingsFragment settings;
-    private ILamp listener;
 
-    private Connection(){
+    private Context context;
+    private ILamp iLamp;
+    private IPair iPair;
+    private Model model;
 
-    }
-
-    public static Connection getInstance(){
-        return INSTANCE;
-    }
-
-    public void connect(Context context, SettingsFragment settings, ILamp listener){
+    public Connection(Context context, ILamp iLamp, IPair iPair) {
         this.queue = Volley.newRequestQueue(context);
-        this.settings = settings;
-        this.listener = listener;
+        this.iLamp = iLamp;
+        this.iPair = iPair;
+        this.model = Model.getInstance();
     }
 
     public void getLamps(){
-        String url = "http://" + this.settings.getIp() + ":" + this.settings.getPort() + "/api/" + this.settings.getUserKey();
+        String url = "http://" + this.model.getIp() + ":" + this.model.getPort() + "/api/" + this.model.getUserKey();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     JSONArray array = response.getJSONObject("lights").names();
-                    listener.onResponse(response, array);
+                    iLamp.onResponse(response, array);
                     Log.v(TAG, "Got: " + response);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -58,7 +56,7 @@ public class Connection {
         this.queue.add(jsonObjectRequest);
     }
 
-    public void putLamp(LampData lamp){
+    public void putLamp(Lamp lamp){
         CustomJsonArrayRequest request = new CustomJsonArrayRequest(
                 Request.Method.PUT,
                 buildUrl(lamp.getLampID()),
@@ -80,18 +78,18 @@ public class Connection {
     }
 
     private String buildUrl(String lightNumber){
-        String url = "http://" + this.settings.getIp() + ":" + this.settings.getPort() + buildApiString(lightNumber);
+        String url = "http://" + this.model.getIp() + ":" + this.model.getPort() + buildApiString(lightNumber);
         Log.i(TAG, "URL=" + url);
         return url;
     }
 
     private String buildApiString(String lightNumber){
-        String apiString = "/api/" + this.settings.getUserKey() + "/lights/" + lightNumber + "/state";
+        String apiString = "/api/" + this.model.getUserKey() + "/lights/" + lightNumber + "/state";
         Log.i(TAG, "apiString=" + apiString);
         return apiString;
     }
 
-    private JSONObject buildBody(LampData lamp){
+    private JSONObject buildBody(Lamp lamp){
         JSONObject body = new JSONObject();
         try {
             body.put("on", lamp.getState());
@@ -106,14 +104,14 @@ public class Connection {
         return body;
     }
 
-    public void pair(final IPair pair){
-        String url = "http://" + this.settings.getIp() + ":" + this.settings.getPort() + "/api/";
+    public void pair(){
+        String url = "http://" + this.model.getIp() + ":" + this.model.getPort() + "/api/";
 
         JSONObject jobject = new JSONObject();
         try{
             jobject.put("devicetype", "MijnHueApp");
         } catch (JSONException e){
-
+            e.printStackTrace();
         }
 
         CustomJsonArrayRequest request = new CustomJsonArrayRequest(
@@ -125,7 +123,7 @@ public class Connection {
                     public void onResponse(JSONArray response) {
                         try{
                             String userKey = response.getJSONObject(0).getJSONObject("success").getString("username");
-                            pair.onResponse(userKey);
+                            iPair.onResponse(userKey);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

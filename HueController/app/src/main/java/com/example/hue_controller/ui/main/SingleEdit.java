@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hue_controller.DataController;
+import com.example.hue_controller.Connection;
 import com.example.hue_controller.ILamp;
 import com.example.hue_controller.LampAdapter;
-import com.example.hue_controller.LampData;
+import com.example.hue_controller.Lamp;
+import com.example.hue_controller.Model;
 import com.example.hue_controller.R;
 
 import org.json.JSONArray;
@@ -26,17 +27,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleEdit extends Fragment implements ILamp {
-    private View view;
     private RecyclerView.Adapter adapter;
     private RecyclerView recyclerView;
-    private DataController dataController;
+    private Model model;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_single_edit, container, false);
-        this.dataController = DataController.getInstance();
-        this.recyclerView = this.view.findViewById(R.id.singleRecyclerView);
-        this.adapter = new LampAdapter(dataController.getLamps());
+        View view = inflater.inflate(R.layout.fragment_single_edit, container, false);
+        this.model = Model.getInstance();
+        this.adapter = new LampAdapter(this.model.getLamps());
+        this.recyclerView = view.findViewById(R.id.singleRecyclerView);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.recyclerView.setAdapter(this.adapter);
         this.recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
@@ -61,7 +61,7 @@ public class SingleEdit extends Fragment implements ILamp {
             try {
                 currentLampStateObject = jsonObject.getJSONObject("lights").getJSONObject(s).getJSONObject("state");
 
-                LampData lampData = new LampData(
+                Lamp lamp = new Lamp(
                         currentLampStateObject.getInt("hue"),
                         currentLampStateObject.getInt("sat"),
                         currentLampStateObject.getInt("bri"),
@@ -69,11 +69,11 @@ public class SingleEdit extends Fragment implements ILamp {
                         jsonObject.getJSONObject("lights").getJSONObject(s).getString("name"),
                         currentLampStateObject.getBoolean("on")
                 );
-                dataController.addLamp(lampData);
+                this.model.addLamp(lamp);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        adapter.notifyDataSetChanged();
+        this.adapter.notifyDataSetChanged();
     }
 }
