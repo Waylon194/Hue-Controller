@@ -16,4 +16,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="tab_text_2">Settings</string>
     <string name="userKey">Enter user key</string>
+    <string name="pair" translatable="false">Pair</string>
 </resources>

@@ -105,4 +105,39 @@ public class Connection {
         Log.i(TAG, "JSON body=" + body.toString());
         return body;
     }
+
+    public void pair(final IPair pair){
+        String url = "http://" + this.settings.getIp() + ":" + this.settings.getPort() + "/api/";
+
+        JSONObject jobject = new JSONObject();
+        try{
+            jobject.put("devicetype", "MijnHueApp");
+        } catch (JSONException e){
+
+        }
+
+        CustomJsonArrayRequest request = new CustomJsonArrayRequest(
+                Request.Method.POST,
+                url,
+                jobject,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try{
+                            String userKey = response.getJSONObject(0).getJSONObject("success").getString("username");
+                            pair.onResponse(userKey);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "Error=" + error.getMessage());
+                    }
+                }
+        );
+        this.queue.add(request);
+    }
 }

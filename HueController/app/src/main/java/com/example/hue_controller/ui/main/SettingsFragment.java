@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -14,25 +15,32 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.hue_controller.DataController;
+import com.example.hue_controller.IPair;
 import com.example.hue_controller.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements IPair {
     private View view;
     private Context context;
+    private Button pairBtn;
+    private DataController dataController;
+    private IPair instance;
     private EditText ipEditText;
     private EditText portEditText;
     private EditText userKeyEditText;
     private String ip;
     private String port;
     private String userKey;
-    private static final String ipTag = "IP";
-    private static final String portTag = "Port";
-    private static final String userKeyTag = "UserKey";
-    private static final String PREFS_NAME = "SETTINGS";
+    private final String ipTag = "IP";
+    private final String portTag = "Port";
+    private final String userKeyTag = "UserKey";
+    private final String PREFS_NAME = "SETTINGS";
 
-    public SettingsFragment(Context context) {
+    public SettingsFragment() {
+    }
+
+    public void init(Context context){
         this.context = context;
         loadPreferences();
     }
@@ -40,12 +48,22 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_settings, container, false);
+        this.pairBtn = view.findViewById(R.id.pairButton);
+        this.dataController = DataController.getInstance();
+        this.instance = this;
         this.ipEditText = view.findViewById(R.id.ipText);
         this.portEditText = view.findViewById(R.id.portText);
         this.userKeyEditText = view.findViewById(R.id.userKeyText);
         this.ipEditText.setText(this.ip);
         this.portEditText.setText(this.port);
         this.userKeyEditText.setText(this.userKey);
+
+        this.pairBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataController.pair(instance);
+            }
+        });
 
         this.ipEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -54,7 +72,7 @@ public class SettingsFragment extends Fragment {
                     if(!ipEditText.getText().toString().trim().isEmpty()){
                         ip = ipEditText.getText().toString();
                         saveString(ipTag, ip);
-                        DataController.getInstance().refreshLamps();
+                        dataController.refreshLamps();
                     }
                 }
             }
@@ -67,7 +85,7 @@ public class SettingsFragment extends Fragment {
                     if(!portEditText.getText().toString().trim().isEmpty()){
                         port = (String) portEditText.getText().toString();
                         saveString(portTag, port);
-                        DataController.getInstance().refreshLamps();
+                        dataController.refreshLamps();
                     }
                 }
             }
@@ -80,7 +98,7 @@ public class SettingsFragment extends Fragment {
                     if(!userKeyEditText.getText().toString().trim().isEmpty()){
                         userKey = (String) userKeyEditText.getText().toString();
                         saveString(userKeyTag, userKey);
-                        DataController.getInstance().refreshLamps();
+                        dataController.refreshLamps();
                     }
                 }
             }
@@ -112,5 +130,12 @@ public class SettingsFragment extends Fragment {
 
     public String getUserKey() {
         return userKey;
+    }
+
+    @Override
+    public void onResponse(String userKey) {
+        this.userKey = userKey;
+        saveString(this.userKeyTag, this.userKey);
+        this.userKeyEditText.setText(this.userKey);
     }
 }

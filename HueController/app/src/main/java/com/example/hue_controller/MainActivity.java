@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         //Add the fragments
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         this.singleFragment = new SingleEdit();
-        this.settingsFragment = new SettingsFragment(this);
+        this.settingsFragment = new SettingsFragment();
+        this.settingsFragment.init(this);
         adapter.AddFragment(singleFragment, getResources().getString(R.string.tab_text_1));
         adapter.AddFragment(settingsFragment, getResources().getString(R.string.tab_text_2));
 

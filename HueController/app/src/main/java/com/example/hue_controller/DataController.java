@@ -59,4 +59,8 @@ public class DataController {
     public void addLamp(LampData lampData) {
         this.lamps.add(lampData);
     }
+
+    public void pair(IPair pair){
+        this.connection.pair(pair);
+    }
 }
